@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hawa's Interactive Timeline</title>
+  <style>
+  body {    
+    margin: 0;
+    padding: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+.outer-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  
+}
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 240px;
+      flex-grow: 1;
+      transition: all 0.4s ease;
+
+    }
+    .timeline {
+      display: flex;
+      align-items: flex-end;
+      overflow-x: auto;
+      white-space: nowrap;
+      height: 300px;
+      gap: 30px;
+      position: relative;
+    }
+    .bar-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      
+    }
+      .bar {
+        width: 10px;
+        background: linear-gradient(180deg, #ffa726, #fb8c00);
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        animation: float 2.5s ease-in-out infinite alternate;
+        
+        /* ADD THIS: */
+        transition: transform 0.4s ease, background 0.4s ease;
+      }
+  
+    .bar:hover {
+      transform: scaleY(1.7) scaleX(1.4);
+      background: linear-gradient(180deg, #ffb74d, #f57c00);
+    }
+    .bar.future {
+      background: linear-gradient(180deg, #66bb6a, #43a047);
+      box-shadow: 0 0 15px rgba(102, 187, 106, 0.6);
+    }
+    .bar.future:hover {
+      background: linear-gradient(180deg, #81c784, #66bb6a);
+      transform: scaleY(1.8) scaleX(1.5);
+    }
+    .year {
+      font-weight: normal;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 5px;
+    }
+    .snapshots {
+      display: none;
+      flex-direction: row;
+      gap: 8px;
+      margin-bottom: 10px;
+      animation: fadeSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .snapshot {
+      width: 60px;
+      height: 50px;
+      background: #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transform: rotate(calc(var(--rotation, 0deg)));
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .snapshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .snapshot:hover {
+      transform: scale(1.2) rotate(calc(var(--rotation, 0deg)));
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .bar-container:hover .snapshots {
+      display: flex;
+    }
+    .notepad {
+      flex-shrink: 0;
+      width: 350px;
+      height: 220px;
+      background: #ffffff;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      overflow-y: scroll;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .notepad.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .close-btn {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #999;
+      margin-bottom: 10px;
+    }
+    .notepad img {
+      width: 50%;
+      height: 120px;
+      border-radius: 8px;
+    }
+    .notepad h3 {
+      margin: 5px 0 5px;
+      font-size: 18px;
+      color: #333;
+    }
+    .notepad p {
+      font-size: 12px;
+      color: #666;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+    @keyframes fadeSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes pulse {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(1.3) scaleX(1.2);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+
+.bar.pulsing {
+  animation: pulse 4s infinite ease-in-out;
+}
+@keyframes riseUp {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <audio id="cbe" src="ce.mp3"></audio>
+
+  <header style=" margin-top: 20px; margin-bottom: 10px;">
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 48px; margin-bottom: 10px;">svsd - final round??? 🥹</h1>
+  
+    <p style="font-size: 18px; color: #444; max-width: 700px; margin: 0 auto; font-family: 'Playfair Display', serif;">
+      <span style="color:#000000; font-weight: bold; font-size: larger;">first real attempt at a <i>"how might we?"</i></span> <br><br>
+      how might we turn a bunch of <b>scattered experiences</b> into something that feels 
+      <span style="color:#7B68EE;">alive</span>, 
+      <span style="color:#FF69B4;">playful</span>, and 
+      <span style="color:#32CD32;">easy</span> to explore? <br><br>
+      i thought about audio waves, how each moment carries energy and rhythm, and designed this timeline to feel the same way.<br> 
+      every bar is a beat, a snapshot of something i built that slightly relates to design, with stories layered underneath.<br><br>
+      <strong>-hawa 🥰</strong>
+  </header>
+
+<div class="outer-container">
+  <div class="container">
+    <div class="timeline">
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google - Cloud Editor Redesign Project [SWE]', 'google3.png', 'google1.png', 'google.png', 'During my internship at Google, I worked on redesigning and engineering the internal dashboard that helps marketers publish information about new Google Cloud offerings. I introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience, and collaborated closely with product teams and engineers to fully rework the dashboard’s design and architecture for simplicity and speed.')">
+          <img src="gc.png" alt="Project 1">
+        </div>
+        <div class="snapshot" style="--rotation: 3deg;" onclick="openNotepad('Blue Origin Mission Control Ops Dashboard [SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'At Blue Origin, I worked on an operations monitoring tool that was deployed during a critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
+          <img src="blue1.png" alt="Project 2">
+        </div>
+      </div>
+      <div class="bar pulsing" style="height: 60px;" onmouseenter="playSound('ce')"></div>
+      <div class="year">2021</div>
+    </div>
+
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Mindful Mates: Relationships Made Sustainable', 'mmc.png','mm1.png', 'mm2.png', 'Mindful Mates was a project to design companion devices that help couples communicate better. We built early prototypes that used subtle prompts to encourage healthier conversations, aiming to catch small issues before they grew into bigger problems.        ')">
+          <img src="mmc.png" alt="Project 3">
+        </div>
+
+        <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Exploration: Creating Spaces for Focus and Productivity', 's1.png','s3.png','s2.png', 'Sukoon was an exploration into portable spaces for focus and deep work, designed especially for people who struggle with attention, overwhelm, or ADHD. I focused on spatial design — creating a customizable environment where users could adjust their surroundings, views, and ambient settings within the pod to fit their needs.  ')">
+          <img src="s.png" alt="Project 4">
+        </div>
+      </div>
+
+
+      <div class="bar pulsing" style="height: 80px;" onmouseenter="playSound('ce')"></div>
+      <div class="year">2022</div>
+    </div>
+
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Pods: Rapid AI Podcast Creation for Creators & Marketing Teams', 'p1.png','p2.png','p4.png', 'Pods is an AI-powered tool that helps creators and marketing teams turn their unrefined notes, research, and articles into polished podcasts within minutes. By taking messy, fragmented ideas and using AI to structure, script, and voice them, Pods makes it easy to transform written knowledge into high-quality audio content')">
+          <img src="pod.png" alt="Project 4">
+        </div>
+
+        <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Monti: Personalized AI Learning Inspired by Montessori Principles', 'm1.png','m2.png','m3.png', 'Monti is a personalized learning companion for children to help them enjoy reading and increase their curiosity')">
+          <img src="mco.png" alt="Project 4">
+        </div>
+      </div>
+      <div class="bar pulsing" style="height: 70px;" onmouseenter="playSound('ce')"></div>
+      <div class="year">2023</div>
+    </div>
+
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: -4deg;" onclick="openNotepad('Otto: AI Travel Agent', 'o1.png', '02.png', '05.png',  'Otto learns your preferences, finds your favorite hotels, and books flights with the seats you prefer - so you don’t have to.')">
+          <img src="02.png" alt="Project 5">
+        </div>
+
+        <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Liminary', 'l1.png', 'l2.png', 'l3.png', 'To create a knowledge companion for every knowledge worker')">
+          <img src="l1.png" alt="Project 5">
+        </div>
+      </div>
+      <div class="bar pulsing" style="height: 90px;" onmouseenter="playSound('ce')"></div>
+      <div class="year">2024</div>
+    </div>
+
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: -4deg;" onclick="openNotepad('cseed design contributions', 'cs1.png', 'cs2.png', 'cs3.png', 'https://www.instagram.com/cseeduw/')">
+          <img src="cs4.png" alt="Project 6">
+        </div>
+        <div class="snapshot" style="--rotation: 2deg;" onclick="openNotepad('figbuild 2025', 'f2.png', 'f3.png', 'f4.png', 'a superpower for transmitting emotional context in real time.')">
+          <img src="f1.png" alt="Project 6">
+        </div>
+      </div>
+      <div class="bar pulsing" style="height: 65px;" onmouseenter="playSound('ce')"></div>
+      <div class="year">2025</div>
+    </div>
+
+
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: 2deg;" onclick="openNotepad('Project 6', 'https://via.placeholder.com/300x200', 'https://via.placeholder.com/300x200', 'Details about Project 6')">
+          <img src="https://via.placeholder.com/50x40" alt="Project 6">
+        </div>
+      </div>
+      <div class="bar pulsing" style="height: 100px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
+      <div class="year" style="color: #000000; font-weight: bold; font-size: medium;">{program} 🚀</div>
+    </div>
+
+    <div class="bar-container">
+      <div class="snapshots">
+        <div class="snapshot" style="--rotation: -3deg;" onclick="openNotepad('Future Dreams', 'https://via.placeholder.com/300x200','https://via.placeholder.com/300x200', 'Your future goals and ambitions')">
+          <img src="https://via.placeholder.com/50x40" alt="Future Dreams">
+        </div>
+      </div>
+      <div class="bar pulsing future" style="height: 60px;" onmouseenter="playSound('ce')"></div>
+      <div class="year">Future</div>
+    </div>
+  </div>
+
+</div>
+
+  <div id="notepad" class="notepad">
+    <button class="close-btn" onclick="closeNotepad()">&times;</button>
+    <div style="display: flex; flex-direction:row; gap: 10px;">
+      <img id="notepadImg" src="" alt="">
+      <img id="notepadImg2" src="" alt="">
+      <img id="notepadImg3" src="" alt="">
+    </div>
+
+    <h3 id="notepadTitle"></h3>
+    <p id="notepadDesc"></p>
+  </div>
+</div>
+
+
+<script>
+  function openNotepad(title, img,img2, img3, desc) {
+    document.getElementById('notepadTitle').textContent = title;
+    document.getElementById('notepadImg').src = img;
+    document.getElementById('notepadImg2').src = img2;
+    document.getElementById('notepadImg3').src = img3;
+    document.getElementById('notepadDesc').textContent = desc;
+    document.getElementById('notepad').classList.add('show');
+  }
+
+  function closeNotepad() {
+    document.getElementById('notepad').classList.remove('show');
+  }
+
+  function playSound(soundId) {
+  const sound = document.getElementById(soundId);
+  if (sound) {
+    sound.currentTime = 0; // rewind to start
+    sound.play();
+  }
+}
+</script>
+
+
+</body>
+</html>

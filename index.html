@@ -10,7 +10,7 @@
     padding: 20px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,6 @@
   justify-content: center;
   width: 100%;
   max-width: 1200px;
-  
 }
 
 .container {
@@ -45,7 +44,7 @@
   overflow-x: auto;
   white-space: nowrap;
   height: 300px;
-  gap: 50px;
+  gap: 40px;
   position: relative;
   flex: 1; /* TAKE UP SPACE to balance next to notepad */
 }
@@ -58,9 +57,9 @@
       
     }
       .bar {
-        width: 20px;
+        width: 25px;
         background: linear-gradient(180deg, #ffa726, #fb8c00);
-        border-radius: 20px;
+        border-radius: 5px;
         cursor: pointer;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         animation: float 2.5s ease-in-out infinite alternate;
@@ -95,8 +94,8 @@
       animation: fadeSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
     .snapshot {
-      width: 80px;
-      height: 70px;
+      width: 120px;
+      height: 80px;
       background: #ddd;
       border-radius: 8px;
       overflow: hidden;
@@ -124,9 +123,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.95);
-  width: 400px;
+  width: 600px;
+  max-height: 80vh;
   max-width: 90%;
-  max-height: 70vh;
   background: #ffffff;
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   border-radius: 16px;
@@ -180,11 +179,11 @@
     }
     .notepad h3 {
       margin: 5px 0 5px;
-      font-size: 18px;
+      font-size: 22px;
       color: #333;
     }
     .notepad p {
-      font-size: 12px;
+      font-size: 18px;
       color: #666;
     }
 
@@ -327,27 +326,40 @@
   opacity: 1;
   pointer-events: auto;
 }
+
+@keyframes pulseLine {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.wave-text {
+  display: inline-block;
+  animation: wave 2s infinite ease-in-out;
+  transform-origin: 70% 70%;
+}
+
+
   </style>
+
+
+
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
 </head>
 <body>
 
   <audio id="cbe" src="ce.mp3"></audio>
-
-  <header style=" margin-top: 20px; margin-bottom: 10px;">
-    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 48px; margin-bottom: 10px;">svsd - final round??? 🥹</h1>
-    <span style="color:#555353; font-weight: 400; font-size: medium;">*first real attempt at a <i>"how might we?"*</i></span> <br><br>
-
-    <div style="border-left: 4px solid #7B68EE; padding-left: 16px; margin: 20px auto; max-width: 600px; font-family: 'Playfair Display', serif; font-size: 22px; color: #444;">
-      <em>how might we turn a bunch of <b>scattered experiences</b> into something that feels <span style="color:#7B68EE;">alive</span>, <span style="color:#FF69B4;">playful</span>, and <span style="color:#32CD32;">easy</span> to explore?</em>
+  <header style="margin-top: 20px;">
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 64px;">svsd - final round??? 🥹</h1>
+  
+    <div style="border-left: 4px solid #7B68EE; padding-left: 16px; max-height: 100px; margin: 5px auto; max-width: 800px; font-family: 'Playfair Display', serif; font-size: 22px; color: #444;">
+      <em>how might we uncover the design threads hidden across <b>scattered software</b> experiences & weave them into something <span style="color:#7B68EE;">playful</span>, <span style="color:#FF69B4;">living</span>, and <span style="color:#32CD32;">tangible</span>?</em>
+      <br>
+      <span style="color:#555353;font-size: xx-small;">*first real attempt at a <i>"how might we?"</i> design question*</span>
     </div>
-
-    <br>
-    <p style="font-size: 18px; color: #444; max-width: 700px; margin: 0 auto; font-family: 'Playfair Display', serif;">
-      i thought about audio waves, how each moment carries energy and rhythm, and designed this timeline to feel the same way.<br> 
-      every bar is a beat, a snapshot of something i built that slightly relates to design, with stories layered underneath.<br><br>
-      <strong>i originally wanted to do a <a href="https://www.figma.com/board/a3ag8WkZ9LnsKn4iBnyVzO/svsd?node-id=2015-2&t=clZfW0NhdhfIvRAb-1" target="_blank" rel="noopener noreferrer">figjam</a> but it quickly got messy😅  -hawa</strong>
+  
   </header>
 
 <div class="outer-container">
@@ -355,7 +367,7 @@
     <div class="timeline">
     <div class="bar-container">
       <div class="snapshots">
-        <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'Redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products. Introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience, and collaborated closely with product teams and engineers to fully rework the dashboard’s design and architecture for simplicity and speed.')">
+        <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'Redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products. Introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience.')">
           <img src="gc.png" alt="Project 1">
         </div>
         <div class="snapshot" style="--rotation: 3deg;" onclick="openNotepad('Blue Origin Mission[SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'Built an operations monitoring tool that is deployed during every critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
@@ -430,8 +442,8 @@
           <img src="bridge.png" alt="Project 6">
         </div>
       </div>
-      <div class="bar pulsing" onclick="openSvsdModal()"style="height: 100px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
-      <div class="year" style="font-family: 'Instrument Serif', serif; color: #000000; font-weight: bold; font-size: medium;"> svsd 🚀</div>
+      <div class="bar pulsing" onclick="openSvsdModal()"style="height: 90px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
+      <div class="year" style="font-family: 'Instrument Serif', serif; color: #000000; font-weight: bold; font-size: medium;"> SVSD 🚀</div>
     </div>
 
     <div class="bar-container">
@@ -528,10 +540,54 @@
   </ul>
 </div>
 
+<div style="display: flex; justify-content: center;">
+  <div id="storyText" style="font-size: 18px; color: #444; max-width: 800px; margin-top: 40px; font-family: 'Playfair Display', serif; line-height: 1.7; padding-left: 20px;">
+    <!-- text -->
+  </div>
+</div>
+
+
 
 
 
 <script>
+  const storyLines = [
+  "i never set out to do design.<br>i stumbled into it, through building, solving, and following curiosity.",
+"to answer this 'how might we' question, i thought about <span class='wave-text'>audio waves</span>, how every moment carries energy and rhythm, and shaped this timeline to feel the same way.",
+  "every bar is a beat.<br>every beat is a snapshot of something i built, with stories layered underneath.<br><b>most</b> brushed against design without me realizing it at the time. & i've only realized it after compiling these last night :D",
+  "i originally wanted to do a <a href='https://www.figma.com/board/a3ag8WkZ9LnsKn4iBnyVzO/svsd?node-id=2015-2&t=clZfW0NhdhfIvRAb-1' target='_blank' rel='noopener noreferrer' style='color:#7B68EE;'>figjam</a> but it quickly got messy 😅 ",
+  "— hawa"
+];
+
+const storyContainer = document.getElementById('storyText');
+
+let i = 0;
+function showNextLine() {
+  if (i < storyLines.length) {
+    const p = document.createElement('p');
+    p.innerHTML = storyLines[i];
+    p.style.opacity = 0;
+    p.style.transition = 'opacity 1s ease';
+    p.style.marginBottom = '20px'; // adds breathing room after each paragraph
+    storyContainer.appendChild(p);
+
+    setTimeout(() => {
+      p.style.opacity = 1;
+
+      // if it's the "audio waves" line, add a pulse animation
+      if (i === 1) {
+        p.style.animation = 'pulseLine 1.5s ease';
+      }
+    }, 50);
+
+    i++;
+    setTimeout(showNextLine, 1400); // slower between lines
+  }
+}
+
+window.onload = showNextLine;
+
+
   function openNotepad(title, img, img2, img3, desc) {
   const notepad = document.getElementById('notepad');
   const overlay = document.querySelector('.notepad-overlay');

@@ -19,12 +19,15 @@
   }
 
 .outer-container {
+  margin-top: 40px; /* <-- ADD THIS */
+
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 1200px;
+  height:auto;
 }
 
 .container {
@@ -35,6 +38,14 @@
   width: 100%; /* TAKE FULL WIDTH */
 }
 
+.timeline-wrapper {
+  background: #090707;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  max-width: 850px;
+  padding: 20px 30px 10px 30px; /* top, right, bottom, left */
+
+}
 
 
 .timeline {
@@ -43,9 +54,10 @@
   justify-content: center; /* CENTER the bars */
   overflow-x: auto;
   white-space: nowrap;
-  height: 300px;
+  min-height:170px;
   gap: 40px;
   position: relative;
+  flex-grow: 1;
   flex: 1; /* TAKE UP SPACE to balance next to notepad */
 }
     .bar-container {
@@ -58,6 +70,7 @@
     }
       .bar {
         width: 25px;
+        border: 0.2px thin gray;
         background: linear-gradient(180deg, #ffa726, #fb8c00);
         border-radius: 5px;
         cursor: pointer;
@@ -72,6 +85,8 @@
       transform: scaleY(1.7) scaleX(1.4);
       background: linear-gradient(180deg, #ffb74d, #f57c00);
     }
+
+
     .bar.future {
       background: linear-gradient(180deg, #66bb6a, #43a047);
       box-shadow: 0 0 15px rgba(102, 187, 106, 0.6);
@@ -83,7 +98,7 @@
     .year {
       font-weight: normal;
       font-size: 12px;
-      color: #aaa;
+      color: #ffffff;
       margin-top: 5px;
     }
     .snapshots {
@@ -94,21 +109,24 @@
       animation: fadeSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
     .snapshot {
-      width: 120px;
-      height: 80px;
-      background: #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      transform: rotate(calc(var(--rotation, 0deg)));
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .snapshot img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  width: 120px;
+  height: 80px;
+  background: #fff; /* background like a polaroid/snapshot */
+  border: 2px solid #ddd inset; /* slight border to simulate photo edge */
+  border-radius: 8px; /* softer corners */
+  padding: 6px; /* add padding so image sits *inside* like a photo */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* stronger shadow for scrapbook lift */
+  overflow: hidden;
+  cursor: pointer;
+  transform: rotate(calc(var(--rotation, 0deg)));
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.snapshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px; /* optional: tiny rounding */
+}
     .snapshot:hover {
       transform: scale(1.2) rotate(calc(var(--rotation, 0deg)));
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -188,7 +206,7 @@
     }
 
     .bar-container:hover .year span {
-      color: #000;
+      color: #ffffff;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -339,6 +357,22 @@
   transform-origin: 70% 70%;
 }
 
+@keyframes popStar {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
 
   </style>
 
@@ -352,7 +386,7 @@
 
   <audio id="cbe" src="ce.mp3"></audio>
   <header style="margin-top: 20px;">
-    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 64px;">svsd - final round??? 🥹</h1>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 76px;">svsd - final round??? 🥹</h1>
   
     <div style="border-left: 4px solid #7B68EE; padding-left: 16px; max-height: 100px; margin: 5px auto; min-width:800px; max-width: 800px; font-family: 'Playfair Display', serif; font-size: 22px; color: #444;">
       <em>how might we uncover the design threads hidden across <b>scattered software</b> experiences & weave them into something <span style="color:#7B68EE;">playful</span>, <span style="color:#FF69B4;">living</span>, and <span style="color:#32CD32;">tangible</span>?</em>
@@ -364,99 +398,102 @@
 
 <div class="outer-container">
   <div class="container">
-    <div class="timeline">
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'Redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products. Introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience.')">
-          <img src="gc.png" alt="Project 1">
-        </div>
-        <div class="snapshot" style="--rotation: 3deg;" onclick="openNotepad('Blue Origin Mission[SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'Built an operations monitoring tool that is deployed during every critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
-          <img src="blue1.png" alt="Project 2">
-        </div>
-      </div>
-      <div class="bar pulsing" style="height: 60px;" onmouseenter="playSound('ce')"></div>
-      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2021</span></div>
-    </div>
 
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Mindful Mates: Relationships Made Sustainable', 'mmc.png','mm1.png', 'mm2.png', 'Mindful Mates was a project to design companion devices that help couples communicate better. We built early prototypes that used subtle prompts to encourage healthier conversations, aiming to catch small issues before they grew into bigger problems.        ')">
-          <img src="mmc.png" alt="Project 3">
+    <div class="timeline-wrapper">
+      <div class="timeline">
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'Redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products. Introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience.')">
+            <img src="gc.png" alt="Project 1">
+          </div>
+          <div class="snapshot" style="--rotation: 7deg;" onclick="openNotepad('Blue Origin Mission[SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'Built an operations monitoring tool that is deployed during every critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
+            <img src="blue1.png" alt="Project 2">
+          </div>
         </div>
-
-        <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Exploration: Creating Spaces for Focus and Productivity', 's1.png','s3.png','s2.png', 'Sukoon was an exploration into portable spaces for focus and deep work, designed especially for people who struggle with attention, overwhelm, or ADHD. I focused on spatial design — creating a customizable environment where users could adjust their surroundings, views, and ambient settings within the pod to fit their needs.  ')">
-          <img src="s.png" alt="Project 4">
-        </div>
+        <div class="bar pulsing" style="height: 60px;" onmouseenter="playSound('ce')"></div>
+        <div class="year"><span style="font-family: 'Instrument Serif', serif;">2021</span></div>
       </div>
 
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Mindful Mates: Relationships Made Sustainable', 'mmc.png','mm1.png', 'mm2.png', 'Mindful Mates was a project to design companion devices that help couples communicate better. We built early prototypes that used subtle prompts to encourage healthier conversations, aiming to catch small issues before they grew into bigger problems.        ')">
+            <img src="mmc.png" alt="Project 3">
+          </div>
 
-      <div class="bar pulsing" style="height: 80px;" onmouseenter="playSound('ce')"></div>
-      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2022</span></div>
-    </div>
-
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Pods: Rapid AI Podcast Creation for Creators & Marketing Teams', 'p1.png','p2.png','p4.png', 'Pods is an AI-powered tool that helps creators and marketing teams turn their unrefined notes, research, and articles into polished podcasts within minutes. By taking messy, fragmented ideas and using AI to structure, script, and voice them, Pods makes it easy to transform written knowledge into high-quality audio content')">
-          <img src="pod.png" alt="Project 4">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Exploration: Creating Spaces for Focus and Productivity', 's1.png','s3.png','s2.png', 'Sukoon was a spatial design exploration into portable spaces for focus and deep work, designed especially for people who struggle with attention, overwhelm, or ADHD.')">
+            <img src="s.png" alt="Project 4">
+          </div>
         </div>
 
-        <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Monti: Personalized AI Learning Inspired by Montessori Principles', 'm1.png','m2.png','m3.png', 'Monti is a personalized learning companion for children to help them enjoy reading and increase their curiosity')">
-          <img src="mco.png" alt="Project 4">
-        </div>
+
+        <div class="bar pulsing" style="height: 80px;" onmouseenter="playSound('ce')"></div>
+        <div class="year"><span style="font-family: 'Instrument Serif', serif;">2022</span></div>
       </div>
-      <div class="bar pulsing" style="height: 70px;" onmouseenter="playSound('ce')"></div>
-      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2023</span></div>
-    </div>
 
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: -4deg;" onclick="openNotepad('Otto: AI Travel Agent', 'o1.png', '02.png', '05.png',  'Otto learns your preferences, finds your favorite hotels, and books flights with the seats you prefer - so you don’t have to.')">
-          <img src="02.png" alt="Project 5">
-        </div>
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Pods: Rapid AI Podcast Creation for Creators & Marketing Teams', 'p1.png','p2.png','p4.png', 'Pods is an AI-powered tool that helps creators and marketing teams turn their unrefined notes, research, and articles into polished podcasts within minutes. By taking messy, fragmented ideas and using AI to structure, script, and voice them, Pods makes it easy to transform written knowledge into high-quality audio content')">
+            <img src="pod.png" alt="Project 4">
+          </div>
 
-        <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Liminary', 'l1.png', 'l2.png', 'l3.png', 'To create a knowledge companion for every knowledge worker')">
-          <img src="l1.png" alt="Project 5">
+          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('Monti: Personalized AI Learning Inspired by Montessori Principles', 'm1.png','m2.png','m3.png', 'Monti is a personalized learning companion for children to help them enjoy reading and increase their curiosity')">
+            <img src="mco.png" alt="Project 4">
+          </div>
         </div>
+        <div class="bar pulsing" style="height: 70px;" onmouseenter="playSound('ce')"></div>
+        <div class="year"><span style="font-family: 'Instrument Serif', serif;">2023</span></div>
       </div>
-      <div class="bar pulsing" style="height: 90px;" onmouseenter="playSound('ce')"></div>
-      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2024</span></div>
-    </div>
 
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: -4deg;" onclick="openNotepad('cseed design contributions', 'cs1.png', 'cs2.png', 'cs3.png', 'https://www.instagram.com/cseeduw/')">
-          <img src="cs4.png" alt="Project 6">
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('Otto: AI Travel Agent', 'o1.png', '02.png', '05.png',  'Otto learns your preferences, finds your favorite hotels, and books flights with the seats you prefer - so you don’t have to.')">
+            <img src="02.png" alt="Project 5">
+          </div>
+
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Liminary', 'l1.png', 'l2.png', 'l3.png', 'To create a knowledge companion for every knowledge worker')">
+            <img src="l1.png" alt="Project 5">
+          </div>
         </div>
-        <div class="snapshot" style="--rotation: 2deg;" onclick="openNotepad('figbuild 2025', 'f2.png', 'f3.png', 'f4.png', 'a superpower for transmitting emotional context in real time. share memories with friends and family authentically, and within seconds using an AI Pin. first figma/design hackathon! 4.24.2025')">
-          <img src="f1.png" alt="Project 6">
-        </div>
+        <div class="bar pulsing" style="height: 90px;" onmouseenter="playSound('ce')"></div>
+        <div class="year"><span style="font-family: 'Instrument Serif', serif;">2024</span></div>
       </div>
-      <div class="bar pulsing" style="height: 65px;" onmouseenter="playSound('ce')"></div>
-      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2025</span></div>
-    </div>
 
-
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: 2deg;" onclick="openSvsdModal()">
-          <img src="bridge.png" alt="Project 6">
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('cseed design contributions (when i really started getting more excited about design!)', 'cs1.png', 'cs2.png', 'cs3.png', 'https://www.instagram.com/cseeduw/')">
+            <img src="cs4.png" alt="Project 6">
+          </div>
+          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('figbuild 2025', 'f2.png', 'f3.png', 'f4.png', 'a superpower for transmitting emotional context in real time. share memories with friends and family authentically, and within seconds using an AI Pin. first figma/design hackathon! 4.24.2025')">
+            <img src="f1.png" alt="Project 6">
+          </div>
         </div>
+        <div class="bar pulsing" style="height: 65px;" onmouseenter="playSound('ce')"></div>
+        <div class="year"><span style="font-family: 'Instrument Serif', serif;">2025</span></div>
       </div>
-      <div class="bar pulsing" onclick="openSvsdModal()"style="height: 90px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
-      <div class="year" style="font-family: 'Instrument Serif', serif; color: #000000; font-weight: bold; font-size: medium;"> SVSD 🚀</div>
+
+
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: 2deg;" onclick="openSvsdModal()">
+            <img src="bridge.png" alt="Project 6">
+          </div>
+        </div>
+        <div class="bar pulsing" onclick="openSvsdModal()"style="height: 90px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
+        <div class="year" style="font-family: 'Instrument Serif', serif; color: #ffffff; font-weight: bold; font-size: medium; text-align: center;"> SVSD 🚀</div>
+      </div>
+
+      <div class="bar-container">
+        <div class="snapshots">
+          <div class="snapshot" style="--rotation: -3deg;" onclick="openFutureModal()">
+            <img src="sun.png" alt="Future Dreams">
+          </div>
+        </div>
+        <div class="bar pulsing future" style="height: 60px;" onclick="openFutureModal()"></div>
+        <div class="year"><span style="font-family: 'Instrument Serif', serif;">Future</span></div>
+      </div>
     </div>
 
-    <div class="bar-container">
-      <div class="snapshots">
-        <div class="snapshot" style="--rotation: -3deg;" onclick="openFutureModal()">
-          <img src="sun.png" alt="Future Dreams">
-        </div>
-      </div>
-      <div class="bar pulsing future" style="height: 60px;" onclick="openFutureModal()"></div>
-      <div class="year"><span style="font-family: 'Instrument Serif', serif;">Future</span></div>
-    </div>
   </div>
-
 </div>
 
   <div class="notepad-overlay"  onclick="closeNotepad()"></div>
@@ -551,42 +588,64 @@
 
 
 <script>
-  const storyLines = [
+
+const storyLines = [
   "i never set out to do design.<br>i stumbled into it, through building, solving, and following curiosity.",
-"to answer this 'how might we' question, i thought about <span class='wave-text'>audio waves</span>, how every moment carries energy and rhythm, and shaped this timeline to feel the same way.",
-  "every bar is a beat.<br>every beat is a snapshot of something i built, with stories layered underneath.<br><b>most</b> brushed against design without me realizing it at the time. & i've only realized how design centric these projects were after compiling these last night :D",
-  "i originally wanted to do a <a href='https://www.figma.com/board/a3ag8WkZ9LnsKn4iBnyVzO/svsd?node-id=2015-2&t=clZfW0NhdhfIvRAb-1' target='_blank' rel='noopener noreferrer' style='color:#7B68EE;'>figjam</a> but it quickly got messy 😅 ",
+  "to answer this 'how might we' question, i thought about <span class='wave-text'>audio waves</span>, how every moment carries energy and rhythm, and shaped this timeline to feel the same way.",
+  "✺ every bar is a beat.",
+  "✺ every beat is a snapshot of something i built, with stories layered underneath.",
+  "✺ most beats brushed against design without me realizing it at the time.",
+  "i've only realized how design centric these projects were after creating this visualization last night :D",
+  "i originally wanted to do a <a href='https://www.figma.com/board/a3ag8WkZ9LnsKn4iBnyVzO/svsd?node-id=2015-2&t=clZfW0NhdhfIvRAb-1' target='_blank' rel='noopener noreferrer' style='color:#7B68EE;'>figjam</a> but it quickly got messy 😅 so i decided to explore this design concept.",
   "— hawa"
 ];
 
+const starColors = ["#7B68EE", "#FF69B4", "#32CD32"]; // playful, living, tangible
 const storyContainer = document.getElementById('storyText');
 
 let i = 0;
 function showNextLine() {
   if (i < storyLines.length) {
     const p = document.createElement('p');
-    p.innerHTML = storyLines[i];
     p.style.opacity = 0;
     p.style.transition = 'opacity 1s ease';
-    p.style.marginBottom = '20px'; // adds breathing room after each paragraph
-    p.style.textAlign = 'left'; // <-- critical to force alignment immediately
+    p.style.marginBottom = '20px';
+    p.style.textAlign = 'left';
+
+    if (storyLines[i].startsWith("✺")) {
+      const star = document.createElement('span');
+      star.textContent = "✺";
+      star.style.color = starColors[(i - 2) % starColors.length];
+      star.style.marginRight = "12px";
+      star.style.fontSize = "18px";
+      star.style.display = "inline-block";
+      star.style.animation = "popStar 0.8s ease";
+
+      const text = document.createElement('span');
+      text.innerHTML = storyLines[i].substring(2); // skip ✺
+      p.appendChild(star);
+      p.appendChild(text);
+    } else {
+      p.innerHTML = storyLines[i];
+    }
+
     storyContainer.appendChild(p);
 
     setTimeout(() => {
       p.style.opacity = 1;
 
-      // if it's the "audio waves" line, add a pulse animation
       if (i === 1) {
         p.style.animation = 'pulseLine 1.5s ease';
       }
-    }, 50);
+    }, 70);
 
     i++;
-    setTimeout(showNextLine, 1400); // slower between lines
+    setTimeout(showNextLine, 1400);
   }
 }
 
 window.onload = showNextLine;
+
 
 
   function openNotepad(title, img, img2, img3, desc) {

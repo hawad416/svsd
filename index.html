@@ -20,7 +20,6 @@
 
 .outer-container {
   margin-top: 40px; /* <-- ADD THIS */
-
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -110,7 +109,7 @@
     }
     .snapshot {
   width: 120px;
-  height: 80px;
+  height: 40px;
   background: #fff; /* background like a polaroid/snapshot */
   border: 2px solid #ddd inset; /* slight border to simulate photo edge */
   border-radius: 8px; /* softer corners */
@@ -577,7 +576,7 @@
   </ul>
 </div>
 
-<div style="display: flex; justify-content: center;">
+<div style="display: flex; justify-content: center; max-height: 100vh;">
   <div id="storyText" style="font-size: 18px; color: #444; min-width: 800px; max-width: 800px; margin-top: 20px; font-family: 'Playfair Display', serif; line-height: 1.7; text-align: left;">
     <!-- text -->
   </div>
@@ -637,10 +636,10 @@ function showNextLine() {
       if (i === 1) {
         p.style.animation = 'pulseLine 1.5s ease';
       }
-    }, 70);
+    }, 50);
 
     i++;
-    setTimeout(showNextLine, 1400);
+    setTimeout(showNextLine, 1200);
   }
 }
 

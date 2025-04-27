@@ -541,7 +541,7 @@
 </div>
 
 <div style="display: flex; justify-content: center;">
-  <div id="storyText" style="font-size: 18px; color: #444; max-width: 800px; margin-top: 40px; font-family: 'Playfair Display', serif; line-height: 1.7; padding-left: 20px;">
+  <div id="storyText" style="font-size: 18px; color: #444; min-width: 800px; max-width: 800px; margin-top: 20px; font-family: 'Playfair Display', serif; line-height: 1.7; text-align: left;">
     <!-- text -->
   </div>
 </div>
@@ -569,6 +569,7 @@ function showNextLine() {
     p.style.opacity = 0;
     p.style.transition = 'opacity 1s ease';
     p.style.marginBottom = '20px'; // adds breathing room after each paragraph
+    p.style.textAlign = 'left'; // <-- critical to force alignment immediately
     storyContainer.appendChild(p);
 
     setTimeout(() => {

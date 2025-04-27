@@ -391,7 +391,7 @@ body {
 </head>
 <body>
 
-  <audio id="cbe" src="ce.mp3"></audio>
+  <audio id="ce" src="ce.wav"></audio>
   <header style="margin-top: 20px;">
     <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 76px;">svsd - final round??? 🥹</h1>
   
@@ -417,7 +417,7 @@ body {
             <img src="blue1.png" alt="Project 2">
           </div>
         </div>
-        <div class="bar pulsing" style="height: 60px;" onmouseenter="playSound('ce')"></div>
+        <div class="bar pulsing" style="height: 60px;"></div>
         <div class="year"><span style="font-family: 'Instrument Serif', serif;">2021</span></div>
       </div>
 
@@ -433,7 +433,7 @@ body {
         </div>
 
 
-        <div class="bar pulsing" style="height: 80px;" onmouseenter="playSound('ce')"></div>
+        <div class="bar pulsing" style="height: 80px;"></div>
         <div class="year"><span style="font-family: 'Instrument Serif', serif;">2022</span></div>
       </div>
 
@@ -447,7 +447,7 @@ body {
             <img src="mco.png" alt="Project 4">
           </div>
         </div>
-        <div class="bar pulsing" style="height: 70px;" onmouseenter="playSound('ce')"></div>
+        <div class="bar pulsing" style="height: 70px;"></div>
         <div class="year"><span style="font-family: 'Instrument Serif', serif;">2023</span></div>
       </div>
 
@@ -461,7 +461,7 @@ body {
             <img src="l1.png" alt="Project 5">
           </div>
         </div>
-        <div class="bar pulsing" style="height: 90px;" onmouseenter="playSound('ce')"></div>
+        <div class="bar pulsing" style="height: 90px;"></div>
         <div class="year"><span style="font-family: 'Instrument Serif', serif;">2024</span></div>
       </div>
 
@@ -474,7 +474,7 @@ body {
             <img src="f1.png" alt="Project 6">
           </div>
         </div>
-        <div class="bar pulsing" style="height: 65px;" onmouseenter="playSound('ce')"></div>
+        <div class="bar pulsing" style="height: 65px;"></div>
         <div class="year"><span style="font-family: 'Instrument Serif', serif;">2025</span></div>
       </div>
 
@@ -485,7 +485,7 @@ body {
             <img src="bridge.png" alt="Project 6">
           </div>
         </div>
-        <div class="bar pulsing" onclick="openSvsdModal()"style="height: 90px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
+        <div class="bar pulsing" onclick="openSvsdModal()"style="height: 90px; background: linear-gradient(180deg, #ffeb3b, #fdd835);"></div>
         <div class="year" style="font-family: 'Instrument Serif', serif; color: #ffffff; font-weight: bold; font-size: medium; text-align: center;"> SVSD 🚀</div>
       </div>
 
@@ -685,6 +685,7 @@ function showNextLine() {
 window.onload = showNextLine
 
   function openNotepad(title, img, img2, img3, desc) {
+  playSound('ce')
   const notepad = document.getElementById('notepad');
   const overlay = document.querySelector('.notepad-overlay');
 
@@ -720,6 +721,7 @@ function closeNotepad() {
 }
   
 function openFutureModal() {
+  playSound('ce')
   const futureModal = document.getElementById('futureModal');
   const overlay = document.getElementById('overlay');
 
@@ -738,6 +740,7 @@ function closeFutureModal() {
 }
 
 function openSvsdModal() {
+  playSound('ce')
   const svsdModal = document.getElementById('svsdModal');
   const modalOverlay = document.getElementById('modalOverlay');
 
@@ -753,6 +756,14 @@ function closeSvsdModal() {
   setTimeout(() => {
     modalOverlay.style.display = 'none';
   }, 400);
+}
+
+function playSound(id) {
+  const audio = document.getElementById(id);
+  if (audio) {
+    audio.currentTime = 0; // rewind to start
+    audio.play();
+  }
 }
 
 </script>

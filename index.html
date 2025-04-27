@@ -39,7 +39,7 @@ body {
 }
 
 .timeline-wrapper {
-  background: #090707;
+  background: #1c1c1c;
   border-radius: 12px;
   margin-bottom: 40px;
   max-width: 850px;
@@ -154,6 +154,7 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 1000;
+  font-family: 'Work Sans', sans-serif;
 }
 
 .notepad.show {
@@ -198,11 +199,12 @@ body {
     .notepad h3 {
       margin: 5px 0 5px;
       font-size: 22px;
-      color: #333;
+      color: #1c1c1c;
+      font-family: 'Playfair Display', serif;
     }
     .notepad p {
       font-size: 18px;
-      color: #666;
+      color: #6d6a6a;
     }
 
     .bar-container:hover .year span {
@@ -267,6 +269,7 @@ body {
   transition: all 0.4s ease;
   z-index: 1001;
   flex-direction: column;
+  font-family: 'Work Sans', sans-serif;
 }
 
 .future-modal.show {
@@ -384,7 +387,9 @@ body {
   </style>
 
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
@@ -410,10 +415,10 @@ body {
       <div class="timeline">
       <div class="bar-container">
         <div class="snapshots">
-          <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'Redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products. Introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience.')">
+          <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products | a star-template favorites system to make frequently used templates easier to find | streamlined the live editing and version control experience.')">
             <img src="gc.png" alt="Project 1">
           </div>
-          <div class="snapshot" style="--rotation: 7deg;" onclick="openNotepad('Blue Origin Mission[SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'Built an operations monitoring tool that is deployed during every critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
+          <div class="snapshot" style="--rotation: 7deg;" onclick="openNotepad('Blue Origin Mission[SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'built an operations monitoring tool, deployed during every critical mission launch | designed and developed real-time dashboards to support live mission operations | focusing on reliability, speed, and clear system visibility for transient alerts')">
             <img src="blue1.png" alt="Project 2">
           </div>
         </div>
@@ -423,11 +428,11 @@ body {
 
       <div class="bar-container">
         <div class="snapshots">
-          <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Mindful Mates: Relationships Made Sustainable', 'mmc.png','mm1.png', 'mm2.png', 'Mindful Mates was a project to design companion devices that help couples communicate better. We built early prototypes that used subtle prompts to encourage healthier conversations, aiming to catch small issues before they grew into bigger problems.        ')">
+          <div class="snapshot" style="--rotation: -2deg;" onclick="openNotepad('Mindful Mates: Relationships Made Sustainable', 'mmc.png','mm1.png', 'mm2.png', 'cse 440 - intro to human computer interaction | companion robotics devices that help couples communicate better | built early prototypes that used subtle prompts & physical gestures to encourage healthier conversations')">
             <img src="mmc.png" alt="Project 3">
           </div>
 
-          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Exploration: Creating Spaces for Focus and Productivity', 's1.png','s3.png','s2.png', 'Sukoon was a spatial design exploration into portable spaces for focus and deep work, designed especially for people who struggle with attention, overwhelm, or ADHD.')">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Exploration: Portable Booths for Focus', 's1.png','s3.png','s2.png', 'a spatial design exploration into portable spaces for focus and deep work | immersive customizable scenery | designed especially for people who struggle with attention, overwhelm, or ADHD.')">
             <img src="s.png" alt="Project 4">
           </div>
         </div>
@@ -439,11 +444,11 @@ body {
 
       <div class="bar-container">
         <div class="snapshots">
-          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Pods: Rapid AI Podcast Creation for Creators & Marketing Teams', 'p1.png','p2.png','p4.png', 'Pods is an AI-powered tool that helps creators and marketing teams turn their unrefined notes, research, and articles into polished podcasts within minutes. By taking messy, fragmented ideas and using AI to structure, script, and voice them, Pods makes it easy to transform written knowledge into high-quality audio content')">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Pods: AI Podcast Tool', 'p1.png','p2.png','p4.png', 'using AI to help creators and marketing teams turn their unrefined notes, research, and articles into podcasts within minutes.| messy, fragmented ideas → structured, scripted, podcasts. | preserve your likeness, intonation, humor, etc.')">
             <img src="pod.png" alt="Project 4">
           </div>
 
-          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('Monti: Personalized AI Learning Inspired by Montessori Principles', 'm1.png','m2.png','m3.png', 'Monti is a personalized learning companion for children to help them enjoy reading and increase their curiosity')">
+          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('Monti: Personalized AI Learning Inspired by Montessori Principles', 'm1.png','m2.png','m3.png', 'personalized AI reading and learning companion for kids | inspired by Montessori principles, emphasizing curiosity, exploration, and joy | designed for self-paced, playful discovery of the world')">
             <img src="mco.png" alt="Project 4">
           </div>
         </div>
@@ -457,7 +462,7 @@ body {
             <img src="02.png" alt="Project 5">
           </div>
 
-          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Liminary', 'l1.png', 'l2.png', 'l3.png', 'To create a knowledge companion for every knowledge worker')">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('Liminary', 'l1.png', 'l2.png', 'l3.png', 'lightweight companion for knowledge workers and curious builders | helps you capture, organize, and connect ideas across different fields and projects | designed to reduce information overwhelm and make knowledge feel alive and accessible.')">
             <img src="l1.png" alt="Project 5">
           </div>
         </div>
@@ -467,10 +472,10 @@ body {
 
       <div class="bar-container">
         <div class="snapshots">
-          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('cseed design contributions (when i really started getting more excited about design!)', 'cs1.png', 'cs2.png', 'cs3.png', 'https://www.instagram.com/cseeduw/')">
+          <div class="snapshot" style="--rotation: 4deg;" onclick="openNotepad('cseed design contributions (when i really started getting more excited about design!)', 'cs1.png', 'cs2.png', 'cs3.png', 'designed buildspace namecards to promote belonging & community | helped create launch graphics to showcase student projects | helped craft creator series visuals to celebrate builders and creativity')">
             <img src="cs4.png" alt="Project 6">
           </div>
-          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('figbuild 2025', 'f2.png', 'f3.png', 'f4.png', 'a superpower for transmitting emotional context in real time. share memories with friends and family authentically, and within seconds using an AI Pin. first figma/design hackathon! 4.24.2025')">
+          <div class="snapshot" style="--rotation: -8deg;" onclick="openNotepad('figbuild 2025', 'f2.png', 'f3.png', 'f4.png', 'a superpower for transmitting emotional context in real time | share memories with friends and family authentically, and within seconds using an AI Pin | first figma/design hackathon! 4.24.2025')">
             <img src="f1.png" alt="Project 6">
           </div>
         </div>
@@ -527,28 +532,28 @@ body {
   <button class="close-btn" onclick="closeFutureModal()">&times;</button>
   
 
-  <h2 style="font-size: 28px; color: #222; margin-bottom: 12px; font-weight: bold;">
+  <h2 style="font-size: 28px; color: #222; margin-bottom: 12px;  font-family: 'Playfair Display', serif; font-weight: bolder;">
     i'm considering any of the following paths, in order of priority.
   </h2>
 
   <div style="text-align: left; font-size: 15px; color: #555; line-height: 1.8;">
 
-    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;"> 🔶 design partner role @ YCombinator / 1517 Fund</h3>
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px;  font-family: 'Playfair Display', serif; color: #333;"> 🔶 design partner role @ YCombinator / 1517 Fund</h3>
     <p style="margin-left: 20px; margin-top: 0;">
       - attempting to be the first Design Partner for all companies at YC or 1517 Fund, working at the forefront of sci-fi, deeptech, and multimodal AI systems.
     </p>
 
-    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;"> ☼ join design studios i admire</h3>
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px;  font-family: 'Playfair Display', serif; color: #333;"> ☼ join design studios i admire</h3>
     <p style="margin-left: 20px; margin-top: 0;">
       - internet.dev, Daybreak Studio, HEX, PlaySF, Basement Studio, Parabolic, FromScratch — to gain rapid design exposure across new environments.
     </p>
 
-    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;">🔭 companies i'd love to design with</h3>
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px;   font-family: 'Playfair Display', serif;color: #333;">🔭 companies i'd love to design with</h3>
     <p style="margin-left: 20px; margin-top: 0;">
       - Notion, Vercept, SHV, Apple, Nothing.so, Meteor, Cognito, Flora, Perplexity, Anthropic.
     </p>
 
-    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;">💭 long-term personal experiments</h3>
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px;  font-family: 'Playfair Display', serif; color: #333;">💭 long-term personal experiments</h3>
     <p style="margin-left: 20px; margin-top: 0;">
       - design inspired by nature, dev tools for flow states, new design/animation libraries, childhood learning devices, RLHF design, diabetic wearables, modular homes, gratitude tools, and more.
     </p>
@@ -560,7 +565,7 @@ body {
 <div id="svsdModal" class="svsd-modal">
   <button class="close-btn" onclick="closeSvsdModal()">&times;</button>
 
-  <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 24px; color: #333;">🎯 what’s missing</h2>
+  <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 24px;   font-family: 'Playfair Display', serif;color: #333;">🎯 what’s missing</h2>
   <ul style="text-align: left; font-size: 16px; color: #555; padding-left: 20px; line-height: 1.8;">
     <li>missing design foundations, formal craft, design/product thinking, and structured critique</li>
     <li>lack fast iteration cycles, honest crit, and an environment built purely for creative risk-taking.</li>
@@ -569,14 +574,14 @@ body {
 
   </ul>
 
-  <h2 style="margin-top: 30px; margin-bottom: 10px; font-size: 24px; color: #333;">⚡ how SVSD fits</h2>
+  <h2 style="margin-top: 30px; margin-bottom: 10px; font-size: 24px;   font-family: 'Playfair Display', serif;color: #333;">⚡ how SVSD fits</h2>
   <ul style="text-align: left; font-size: 16px; color: #555; padding-left: 20px; line-height: 1.8;">
     <li>push my thinking, break comfort, and sharpen my taste through high intensity, consistent feedback and critique.</li>
     <li>community + direct mentorship seems very dope !!! working alongside ambitious creatives, not just engineers.</li>
     <li>exposure to different design perspectives & knowledge on how to build the future.</li>
   </ul>
 
-  <h2 style="margin-top: 30px; margin-bottom: 10px; font-size: 24px; color: #333;">🚀 what i want to grow into</h2>
+  <h2 style="margin-top: 30px; margin-bottom: 10px; font-size: 24px;   font-family: 'Playfair Display', serif;color: #333;">🚀 what i want to grow into</h2>
   <ul style="text-align: left; font-size: 16px; color: #555; padding-left: 20px; line-height: 1.8;">
     <li>someone who turns raw ideas into bold, tangible designs by being highly creative and disciplined in execution</li>
     <li>rebuild a true beginner’s mindset.</li>
@@ -604,7 +609,7 @@ body {
     margin-bottom: 10px;
     right: 15px;
     font-size: 12px;
-    color: #999;
+    color:#FF8C00;
     font-family: 'Playfair Display', serif;
     opacity: 0.8;
     pointer-events: none;
@@ -628,8 +633,8 @@ storyText.addEventListener('scroll', () => {
 });
 
 const storyLines = [
-  "i never set out to do design...i stumbled into it, through building, solving, and following curiosity.",
-  "to answer this 'how might we' question, i thought about <span class='wave-text'>audio waves</span>, how every moment carries energy and rhythm, and shaped this timeline to feel the same way.",
+  "i never set out to do design. i stumbled into it, through building, solving, and following curiosity.",
+  "to answer this <i>'how might we'</i> question, i thought about <span class='wave-text'>audio waves</span>, how every moment carries energy and rhythm, and shaped this timeline to feel the same way.",
   "✺ every bar is a beat.",
   "✺ every beat is a snapshot of something i built, with stories layered underneath.",
   "✺ most beats brushed against design without me realizing it at the time.",
@@ -678,18 +683,17 @@ function showNextLine() {
     }, 50);
 
     i++;
-    setTimeout(showNextLine, 1200);
+    setTimeout(showNextLine, 1000);
   }
 }
 
 window.onload = showNextLine
 
-  function openNotepad(title, img, img2, img3, desc) {
-  playSound('ce')
+function openNotepad(title, img, img2, img3, desc) {
+  playSound('ce');
   const notepad = document.getElementById('notepad');
   const overlay = document.querySelector('.notepad-overlay');
 
-  // Show
   notepad.style.display = 'flex';
   overlay.style.display = 'block';
 
@@ -697,9 +701,21 @@ window.onload = showNextLine
   document.getElementById('notepadImg').src = img;
   document.getElementById('notepadImg2').src = img2;
   document.getElementById('notepadImg3').src = img3;
-  document.getElementById('notepadDesc').textContent = desc;
 
-  // Animate
+  // clear old content
+  const descContainer = document.getElementById('notepadDesc');
+  descContainer.innerHTML = '';
+
+  // split and create ✺ bullets
+  const points = desc.split('|');
+  points.forEach(point => {
+    const bullet = document.createElement('p');
+    bullet.style.display = 'flex';
+    bullet.style.marginBottom = '8px';
+    bullet.innerHTML = `<span  style="color:#FF8C00; margin-right:12px; font-size:14px;">✦</span> <span>${point.trim()}</span>`;
+    descContainer.appendChild(bullet);
+  });
+
   requestAnimationFrame(() => {
     notepad.classList.add('show');
     overlay.classList.add('show');

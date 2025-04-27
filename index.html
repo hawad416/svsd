@@ -372,7 +372,14 @@ body {
   }
 }
 
-
+@keyframes floatHint {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
 
   </style>
 
@@ -577,9 +584,34 @@ body {
   </ul>
 </div>
 
-<div style="display: flex; justify-content: center; max-height: 90vh;">
-  <div id="storyText" style="font-size: 18px; color: #444; min-width: 800px; max-width: 800px; margin-top: 10px; font-family: 'Playfair Display', serif; line-height: 1.7; text-align: left;">
+<div style="position: relative; width: 100%; display: flex; justify-content: center;">
+  <div id="storyText" style="
+  font-size: 18px;
+  color: #444;
+  min-width: 800px;
+  max-width: 800px;
+  margin-top: 10px;
+  font-family: 'Playfair Display', serif;
+  line-height: 1.7;
+  text-align: left;
+  height: 320px; /* <-- ADD height */
+  overflow-y: auto; /* <-- ADD overflow */
+  position: relative;
+">
     <!-- text -->
+    <div id="scrollHint" style="
+    position: absolute;
+    margin-bottom: 10px;
+    right: 15px;
+    font-size: 12px;
+    color: #999;
+    font-family: 'Playfair Display', serif;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: floatHint 2s ease-in-out infinite;
+  ">
+    scroll ↓
+  </div>
   </div>
 </div>
 
@@ -588,6 +620,12 @@ body {
 
 
 <script>
+const storyText = document.getElementById('storyText');
+const scrollHint = document.getElementById('scrollHint');
+
+storyText.addEventListener('scroll', () => {
+  scrollHint.style.opacity = '0';
+});
 
 const storyLines = [
   "i never set out to do design...i stumbled into it, through building, solving, and following curiosity.",
@@ -644,9 +682,7 @@ function showNextLine() {
   }
 }
 
-window.onload = showNextLine;
-
-
+window.onload = showNextLine
 
   function openNotepad(title, img, img2, img3, desc) {
   const notepad = document.getElementById('notepad');

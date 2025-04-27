@@ -134,18 +134,19 @@
   overflow-y: auto;
   opacity: 0;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
-  display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 1000;
 }
 
 .notepad.show {
+  display: flex;
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
 
 .overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -309,6 +310,7 @@
 }
 
 .notepad-overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -445,9 +447,10 @@
 
 </div>
 
-  <div class="notepad-overlay" onclick="closeNotepad()"></div>
+  <div class="notepad-overlay"  onclick="closeNotepad()"></div>
   <div id="overlay" onclick="closeFutureModal()"></div>
   <div id="modalOverlay" class="modal-overlay" onclick="closeSvsdModal()"></div>
+
 
 
 
@@ -471,10 +474,6 @@
   <h2 style="font-size: 28px; color: #222; margin-bottom: 12px; font-weight: bold;">
     i'm considering any of the following paths, in order of priority.
   </h2>
-
-  <p style="font-size: 15px; color: #666; font-style: italic; margin-bottom: 30px;">
-    ⚡️ i am antifragile. wherever the world moves, i will find a way to be relevant and lead.
-  </p>
 
   <div style="text-align: left; font-size: 15px; color: #555; line-height: 1.8;">
 
@@ -533,21 +532,25 @@
 
 
 <script>
-
-function openNotepad(title, img, img2, img3, desc) {
+  function openNotepad(title, img, img2, img3, desc) {
   const notepad = document.getElementById('notepad');
   const overlay = document.querySelector('.notepad-overlay');
 
+  // Show
   notepad.style.display = 'flex';
-  overlay.classList.add('show');
+  overlay.style.display = 'block';
 
   document.getElementById('notepadTitle').textContent = title;
   document.getElementById('notepadImg').src = img;
   document.getElementById('notepadImg2').src = img2;
   document.getElementById('notepadImg3').src = img3;
   document.getElementById('notepadDesc').textContent = desc;
-  
-  notepad.classList.add('show');
+
+  // Animate
+  requestAnimationFrame(() => {
+    notepad.classList.add('show');
+    overlay.classList.add('show');
+  });
 }
 
 function closeNotepad() {
@@ -557,41 +560,47 @@ function closeNotepad() {
   notepad.classList.remove('show');
   overlay.classList.remove('show');
 
+  // Fully hide after animation finishes
   setTimeout(() => {
     notepad.style.display = 'none';
-  }, 400);
+    overlay.style.display = 'none';
+  }, 400); // same duration as your CSS transition
 }
-
-
-
-
-  function playSound(soundId) {
-  const sound = document.getElementById(soundId);
-  if (sound) {
-    sound.currentTime = 0; // rewind to start
-    sound.play();
-  }
-}
-
+  
 function openFutureModal() {
-  document.getElementById('futureModal').classList.add('show');
-  document.getElementById('overlay').style.display = 'block';
+  const futureModal = document.getElementById('futureModal');
+  const overlay = document.getElementById('overlay');
+
+  futureModal.classList.add('show');
+  overlay.style.display = 'block';
 }
 
 function closeFutureModal() {
-  document.getElementById('futureModal').classList.remove('show');
+  const futureModal = document.getElementById('futureModal');
+  const overlay = document.getElementById('overlay');
+
+  futureModal.classList.remove('show');
   setTimeout(() => {
-    document.getElementById('overlay').style.display = 'none';
+    overlay.style.display = 'none';
   }, 400);
 }
 
 function openSvsdModal() {
-  document.getElementById('svsdModal').classList.add('show');
-  document.getElementById('modalOverlay').classList.add('show');
+  const svsdModal = document.getElementById('svsdModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+
+  svsdModal.classList.add('show');
+  modalOverlay.style.display = 'block';
 }
+
 function closeSvsdModal() {
-  document.getElementById('svsdModal').classList.remove('show');
-  document.getElementById('modalOverlay').classList.remove('show');
+  const svsdModal = document.getElementById('svsdModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+
+  svsdModal.classList.remove('show');
+  setTimeout(() => {
+    modalOverlay.style.display = 'none';
+  }, 400);
 }
 
 </script>

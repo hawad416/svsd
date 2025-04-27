@@ -5,28 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hawa's Interactive Timeline</title>
   <style>
-  body {    
-    margin: 0;
-    padding: 20px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 
 .outer-container {
-  margin-top: 40px; /* <-- ADD THIS */
+  margin-top: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 1200px;
-  height:auto;
+  height:25vh;
 }
 
 .container {
@@ -34,7 +35,7 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-  width: 100%; /* TAKE FULL WIDTH */
+  width: 100%;
 }
 
 .timeline-wrapper {
@@ -50,14 +51,14 @@
 .timeline {
   display: flex;
   align-items: flex-end;
-  justify-content: center; /* CENTER the bars */
+  justify-content: center;
   overflow-x: auto;
   white-space: nowrap;
   min-height:170px;
   gap: 40px;
   position: relative;
   flex-grow: 1;
-  flex: 1; /* TAKE UP SPACE to balance next to notepad */
+  flex: 1;
 }
     .bar-container {
       position: relative;
@@ -112,7 +113,7 @@
   height: 70px;
   background: #fff; /* background like a polaroid/snapshot */
   border: 2px solid #ddd inset; /* slight border to simulate photo edge */
-  border-radius: 8px; /* softer corners */
+  border-radius: 8px;
   padding: 6px; /* add padding so image sits *inside* like a photo */
   box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* stronger shadow for scrapbook lift */
   overflow: hidden;
@@ -124,7 +125,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px; /* optional: tiny rounding */
+  border-radius: 4px;
 }
     .snapshot:hover {
       transform: scale(1.2) rotate(calc(var(--rotation, 0deg)));
@@ -176,8 +177,6 @@
 }
 
 .overlay.show {
-  overflow-x: hidden;
-  overflow-y: hidden;
   opacity: 1;
   pointer-events: auto; /* allow clicking to close */
 }
@@ -578,8 +577,8 @@
   </ul>
 </div>
 
-<div style="display: flex; justify-content: center; max-height: 100vh;">
-  <div id="storyText" style="font-size: 18px; color: #444; min-width: 800px; max-width: 800px; margin-top: 20px; font-family: 'Playfair Display', serif; line-height: 1.7; text-align: left;">
+<div style="display: flex; justify-content: center; max-height: 90vh;">
+  <div id="storyText" style="font-size: 18px; color: #444; min-width: 800px; max-width: 800px; margin-top: 10px; font-family: 'Playfair Display', serif; line-height: 1.7; text-align: left;">
     <!-- text -->
   </div>
 </div>
@@ -591,7 +590,7 @@
 <script>
 
 const storyLines = [
-  "i never set out to do design.<br>i stumbled into it, through building, solving, and following curiosity.",
+  "i never set out to do design...i stumbled into it, through building, solving, and following curiosity.",
   "to answer this 'how might we' question, i thought about <span class='wave-text'>audio waves</span>, how every moment carries energy and rhythm, and shaped this timeline to feel the same way.",
   "✺ every bar is a beat.",
   "✺ every beat is a snapshot of something i built, with stories layered underneath.",
@@ -610,7 +609,7 @@ function showNextLine() {
     const p = document.createElement('p');
     p.style.opacity = 0;
     p.style.transition = 'opacity 1s ease';
-    p.style.marginBottom = '20px';
+    p.style.marginBottom = '5px';
     p.style.textAlign = 'left';
 
     if (storyLines[i].startsWith("✺")) {

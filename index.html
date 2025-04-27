@@ -21,31 +21,34 @@
 .outer-container {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 1200px;
   
 }
 
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 240px;
-      flex-grow: 1;
-      transition: all 0.4s ease;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%; /* TAKE FULL WIDTH */
+}
 
-    }
-    .timeline {
-      display: flex;
-      align-items: flex-end;
-      overflow-x: auto;
-      white-space: nowrap;
-      height: 300px;
-      gap: 30px;
-      position: relative;
-    }
+
+
+.timeline {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center; /* CENTER the bars */
+  overflow-x: auto;
+  white-space: nowrap;
+  height: 300px;
+  gap: 50px;
+  position: relative;
+  flex: 1; /* TAKE UP SPACE to balance next to notepad */
+}
     .bar-container {
       position: relative;
       display: flex;
@@ -55,7 +58,7 @@
       
     }
       .bar {
-        width: 10px;
+        width: 20px;
         background: linear-gradient(180deg, #ffa726, #fb8c00);
         border-radius: 20px;
         cursor: pointer;
@@ -92,8 +95,8 @@
       animation: fadeSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
     .snapshot {
-      width: 60px;
-      height: 50px;
+      width: 80px;
+      height: 70px;
       background: #ddd;
       border-radius: 8px;
       overflow: hidden;
@@ -114,25 +117,52 @@
     .bar-container:hover .snapshots {
       display: flex;
     }
+    
     .notepad {
-      flex-shrink: 0;
-      width: 350px;
-      height: 220px;
-      background: #ffffff;
-      box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      padding: 20px;
-      overflow-y: scroll;
-      transform: translateX(100%);
-      opacity: 0;
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      display: flex;
-      flex-direction: column;
-    }
-    .notepad.show {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 400px;
+  max-width: 90%;
+  max-height: 70vh;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  border-radius: 16px;
+  padding: 20px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+}
+
+.notepad.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4); /* dim black background */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* so it doesn't block clicks unless shown */
+  z-index: 900; /* under the notepad (z-index 1000) */
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto; /* allow clicking to close */
+}
+
     .close-btn {
       align-self: flex-end;
       background: none;
@@ -143,8 +173,8 @@
       margin-bottom: 10px;
     }
     .notepad img {
-      width: 50%;
-      height: 120px;
+      width: 60%;
+      height: 150px;
       border-radius: 8px;
     }
     .notepad h3 {
@@ -155,6 +185,12 @@
     .notepad p {
       font-size: 12px;
       color: #666;
+    }
+
+    .bar-container:hover .year span {
+      color: #000;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
     @keyframes float {
       0% { transform: translateY(0); }
@@ -196,7 +232,99 @@
   }
 }
 
+.future-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 550px;
+  max-height: 70vh;
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding: 30px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 1001;
+  flex-direction: column;
+}
 
+.future-modal.show {
+  display: flex;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1
+}
+
+.svsd-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 550px;
+  max-height: 70vh;
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding: 30px;
+  overflow-y: auto;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 1001;
+  flex-direction: column;
+}
+
+.svsd-modal.show {
+  display: flex;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* dim the background */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1
+}
+.modal-overlay.show {
+  display: block;
+}
+
+.notepad-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4); /* dim background */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 900;
+}
+
+.notepad-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
   </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
@@ -207,16 +335,17 @@
 
   <header style=" margin-top: 20px; margin-bottom: 10px;">
     <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 48px; margin-bottom: 10px;">svsd - final round??? 🥹</h1>
-  
+    <span style="color:#555353; font-weight: 400; font-size: medium;">*first real attempt at a <i>"how might we?"*</i></span> <br><br>
+
+    <div style="border-left: 4px solid #7B68EE; padding-left: 16px; margin: 20px auto; max-width: 600px; font-family: 'Playfair Display', serif; font-size: 22px; color: #444;">
+      <em>how might we turn a bunch of <b>scattered experiences</b> into something that feels <span style="color:#7B68EE;">alive</span>, <span style="color:#FF69B4;">playful</span>, and <span style="color:#32CD32;">easy</span> to explore?</em>
+    </div>
+
+    <br>
     <p style="font-size: 18px; color: #444; max-width: 700px; margin: 0 auto; font-family: 'Playfair Display', serif;">
-      <span style="color:#000000; font-weight: bold; font-size: larger;">first real attempt at a <i>"how might we?"</i></span> <br><br>
-      how might we turn a bunch of <b>scattered experiences</b> into something that feels 
-      <span style="color:#7B68EE;">alive</span>, 
-      <span style="color:#FF69B4;">playful</span>, and 
-      <span style="color:#32CD32;">easy</span> to explore? <br><br>
       i thought about audio waves, how each moment carries energy and rhythm, and designed this timeline to feel the same way.<br> 
       every bar is a beat, a snapshot of something i built that slightly relates to design, with stories layered underneath.<br><br>
-      <strong>-hawa 🥰</strong>
+      <strong>i originally wanted to do a <a href="https://www.figma.com/board/a3ag8WkZ9LnsKn4iBnyVzO/svsd?node-id=2015-2&t=clZfW0NhdhfIvRAb-1" target="_blank" rel="noopener noreferrer">figjam</a> but it quickly got messy😅  -hawa</strong>
   </header>
 
 <div class="outer-container">
@@ -224,15 +353,15 @@
     <div class="timeline">
     <div class="bar-container">
       <div class="snapshots">
-        <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google - Cloud Editor Redesign Project [SWE]', 'google3.png', 'google1.png', 'google.png', 'During my internship at Google, I worked on redesigning and engineering the internal dashboard that helps marketers publish information about new Google Cloud offerings. I introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience, and collaborated closely with product teams and engineers to fully rework the dashboard’s design and architecture for simplicity and speed.')">
+        <div class="snapshot" style="--rotation: -5deg;" onclick="openNotepad('Google Cloud [SWE]', 'google3.png', 'google1.png', 'google.png', 'Redesigned and developed the internal dashboard that helps marketers publish information about new Google Cloud products. Introduced a star-template favorites system to make frequently used templates easier to find, streamlined the live editing and version control experience, and collaborated closely with product teams and engineers to fully rework the dashboard’s design and architecture for simplicity and speed.')">
           <img src="gc.png" alt="Project 1">
         </div>
-        <div class="snapshot" style="--rotation: 3deg;" onclick="openNotepad('Blue Origin Mission Control Ops Dashboard [SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'At Blue Origin, I worked on an operations monitoring tool that was deployed during a critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
+        <div class="snapshot" style="--rotation: 3deg;" onclick="openNotepad('Blue Origin Mission[SWE + Design]', 'blue1.png', 'blue2.png','blue3.png', 'Built an operations monitoring tool that is deployed during every critical mission launch. I helped design and engineer real-time dashboards to support live mission operations, focusing on reliability, speed, and clear system visibility when it mattered most.')">
           <img src="blue1.png" alt="Project 2">
         </div>
       </div>
       <div class="bar pulsing" style="height: 60px;" onmouseenter="playSound('ce')"></div>
-      <div class="year">2021</div>
+      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2021</span></div>
     </div>
 
     <div class="bar-container">
@@ -248,7 +377,7 @@
 
 
       <div class="bar pulsing" style="height: 80px;" onmouseenter="playSound('ce')"></div>
-      <div class="year">2022</div>
+      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2022</span></div>
     </div>
 
     <div class="bar-container">
@@ -262,7 +391,7 @@
         </div>
       </div>
       <div class="bar pulsing" style="height: 70px;" onmouseenter="playSound('ce')"></div>
-      <div class="year">2023</div>
+      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2023</span></div>
     </div>
 
     <div class="bar-container">
@@ -276,7 +405,7 @@
         </div>
       </div>
       <div class="bar pulsing" style="height: 90px;" onmouseenter="playSound('ce')"></div>
-      <div class="year">2024</div>
+      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2024</span></div>
     </div>
 
     <div class="bar-container">
@@ -289,32 +418,38 @@
         </div>
       </div>
       <div class="bar pulsing" style="height: 65px;" onmouseenter="playSound('ce')"></div>
-      <div class="year">2025</div>
+      <div class="year"><span style="font-family: 'Instrument Serif', serif;">2025</span></div>
     </div>
 
 
     <div class="bar-container">
       <div class="snapshots">
-        <div class="snapshot" style="--rotation: 2deg;" onclick="openNotepad('Project 6', 'https://via.placeholder.com/300x200', 'https://via.placeholder.com/300x200', 'Details about Project 6')">
-          <img src="https://via.placeholder.com/50x40" alt="Project 6">
+        <div class="snapshot" style="--rotation: 2deg;" onclick="openSvsdModal()">
+          <img src="bridge.png" alt="Project 6">
         </div>
       </div>
-      <div class="bar pulsing" style="height: 100px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
-      <div class="year" style="color: #000000; font-weight: bold; font-size: medium;">{program} 🚀</div>
+      <div class="bar pulsing" onclick="openSvsdModal()"style="height: 100px; background: linear-gradient(180deg, #ffeb3b, #fdd835);" onmouseenter="playSound('ce')"></div>
+      <div class="year" style="font-family: 'Instrument Serif', serif; color: #000000; font-weight: bold; font-size: medium;"> svsd 🚀</div>
     </div>
 
     <div class="bar-container">
       <div class="snapshots">
-        <div class="snapshot" style="--rotation: -3deg;" onclick="openNotepad('Future Dreams', 'https://via.placeholder.com/300x200','https://via.placeholder.com/300x200', 'Your future goals and ambitions')">
-          <img src="https://via.placeholder.com/50x40" alt="Future Dreams">
+        <div class="snapshot" style="--rotation: -3deg;" onclick="openFutureModal()">
+          <img src="sun.png" alt="Future Dreams">
         </div>
       </div>
-      <div class="bar pulsing future" style="height: 60px;" onmouseenter="playSound('ce')"></div>
-      <div class="year">Future</div>
+      <div class="bar pulsing future" style="height: 60px;" onclick="openFutureModal()"></div>
+      <div class="year"><span style="font-family: 'Instrument Serif', serif;">Future</span></div>
     </div>
   </div>
 
 </div>
+
+  <div class="notepad-overlay" onclick="closeNotepad()"></div>
+  <div id="overlay" onclick="closeFutureModal()"></div>
+  <div id="modalOverlay" class="modal-overlay" onclick="closeSvsdModal()"></div>
+
+
 
   <div id="notepad" class="notepad">
     <button class="close-btn" onclick="closeNotepad()">&times;</button>
@@ -329,20 +464,106 @@
   </div>
 </div>
 
+<div id="futureModal" class="future-modal">
+  <button class="close-btn" onclick="closeFutureModal()">&times;</button>
+  
+
+  <h2 style="font-size: 28px; color: #222; margin-bottom: 12px; font-weight: bold;">
+    i'm considering any of the following paths, in order of priority.
+  </h2>
+
+  <p style="font-size: 15px; color: #666; font-style: italic; margin-bottom: 30px;">
+    ⚡️ i am antifragile. wherever the world moves, i will find a way to be relevant and lead.
+  </p>
+
+  <div style="text-align: left; font-size: 15px; color: #555; line-height: 1.8;">
+
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;"> 🔶 design partner role @ YCombinator / 1517 Fund</h3>
+    <p style="margin-left: 20px; margin-top: 0;">
+      - attempting to be the first Design Partner for all companies at YC or 1517 Fund, working at the forefront of sci-fi, deeptech, and multimodal AI systems.
+    </p>
+
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;"> ☼ join design studios i admire</h3>
+    <p style="margin-left: 20px; margin-top: 0;">
+      - internet.dev, Daybreak Studio, HEX, PlaySF, Basement Studio, Parabolic, FromScratch — to gain rapid design exposure across new environments.
+    </p>
+
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;">🔭 companies i'd love to design with</h3>
+    <p style="margin-left: 20px; margin-top: 0;">
+      - Notion, Vercept, SHV, Apple, Nothing.so, Meteor, Cognito, Flora, Perplexity, Anthropic.
+    </p>
+
+    <h3 style="margin-top: 20px; margin-bottom: 8px; font-size: 18px; color: #333;">💭 long-term personal experiments</h3>
+    <p style="margin-left: 20px; margin-top: 0;">
+      - design inspired by nature, dev tools for flow states, new design/animation libraries, childhood learning devices, RLHF design, diabetic wearables, modular homes, gratitude tools, and more.
+    </p>
+
+  </div>
+</div>
+
+
+<div id="svsdModal" class="svsd-modal">
+  <button class="close-btn" onclick="closeSvsdModal()">&times;</button>
+
+  <h2 style="margin-top: 20px; margin-bottom: 10px; font-size: 24px; color: #333;">🎯 what’s missing</h2>
+  <ul style="text-align: left; font-size: 16px; color: #555; padding-left: 20px; line-height: 1.8;">
+    <li>missing design foundations, formal craft, design/product thinking, and structured critique</li>
+    <li>lack fast iteration cycles, honest crit, and an environment built purely for creative risk-taking.</li>
+    <li>struggle to translate ideas into polished, intentional designs.</li>
+
+
+  </ul>
+
+  <h2 style="margin-top: 30px; margin-bottom: 10px; font-size: 24px; color: #333;">⚡ how SVSD fits</h2>
+  <ul style="text-align: left; font-size: 16px; color: #555; padding-left: 20px; line-height: 1.8;">
+    <li>push my thinking, break comfort, and sharpen my taste through high intensity, consistent feedback and critique.</li>
+    <li>community + direct mentorship seems very dope !!! working alongside ambitious creatives, not just engineers.</li>
+    <li>exposure to different design perspectives & knowledge on how to build the future.</li>
+  </ul>
+
+  <h2 style="margin-top: 30px; margin-bottom: 10px; font-size: 24px; color: #333;">🚀 what i want to grow into</h2>
+  <ul style="text-align: left; font-size: 16px; color: #555; padding-left: 20px; line-height: 1.8;">
+    <li>someone who turns raw ideas into bold, tangible designs by being highly creative and disciplined in execution</li>
+    <li>rebuild a true beginner’s mindset.</li>
+    <li>someone who builds products, communities, and systems where design leads everything.</li>
+  </ul>
+</div>
+
+
+
 
 <script>
-  function openNotepad(title, img,img2, img3, desc) {
-    document.getElementById('notepadTitle').textContent = title;
-    document.getElementById('notepadImg').src = img;
-    document.getElementById('notepadImg2').src = img2;
-    document.getElementById('notepadImg3').src = img3;
-    document.getElementById('notepadDesc').textContent = desc;
-    document.getElementById('notepad').classList.add('show');
-  }
 
-  function closeNotepad() {
-    document.getElementById('notepad').classList.remove('show');
-  }
+function openNotepad(title, img, img2, img3, desc) {
+  const notepad = document.getElementById('notepad');
+  const overlay = document.querySelector('.notepad-overlay');
+
+  notepad.style.display = 'flex';
+  overlay.classList.add('show');
+
+  document.getElementById('notepadTitle').textContent = title;
+  document.getElementById('notepadImg').src = img;
+  document.getElementById('notepadImg2').src = img2;
+  document.getElementById('notepadImg3').src = img3;
+  document.getElementById('notepadDesc').textContent = desc;
+  
+  notepad.classList.add('show');
+}
+
+function closeNotepad() {
+  const notepad = document.getElementById('notepad');
+  const overlay = document.querySelector('.notepad-overlay');
+
+  notepad.classList.remove('show');
+  overlay.classList.remove('show');
+
+  setTimeout(() => {
+    notepad.style.display = 'none';
+  }, 400);
+}
+
+
+
 
   function playSound(soundId) {
   const sound = document.getElementById(soundId);
@@ -351,6 +572,28 @@
     sound.play();
   }
 }
+
+function openFutureModal() {
+  document.getElementById('futureModal').classList.add('show');
+  document.getElementById('overlay').style.display = 'block';
+}
+
+function closeFutureModal() {
+  document.getElementById('futureModal').classList.remove('show');
+  setTimeout(() => {
+    document.getElementById('overlay').style.display = 'none';
+  }, 400);
+}
+
+function openSvsdModal() {
+  document.getElementById('svsdModal').classList.add('show');
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeSvsdModal() {
+  document.getElementById('svsdModal').classList.remove('show');
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
 </script>
 
 

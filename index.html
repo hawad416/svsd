@@ -14,13 +14,15 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #fafafa;
   align-items: center;
   justify-content: flex-start;
 }
 
 
 .outer-container {
-  margin-top: 30px;
+  margin-top: 80px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -38,15 +40,25 @@ body {
   width: 100%;
 }
 
+.bar {
+  width: 30px; /* was 25px */
+  border: 0.2px thin gray;
+  background: linear-gradient(180deg, #ffa726, #fb8c00);
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  animation: float 2.5s ease-in-out infinite alternate;
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
 .timeline-wrapper {
   background: #1c1c1c;
   border-radius: 12px;
   margin-bottom: 40px;
-  max-width: 850px;
-  padding: 20px 30px 10px 30px; /* top, right, bottom, left */
-
+  min-width: 760px; /* was 700px */
+  min-height: 120px; /* slightly taller */
+  padding: 30px 30px 10px 30px;
 }
-
 
 .timeline {
   display: flex;
@@ -54,12 +66,14 @@ body {
   justify-content: center;
   overflow-x: auto;
   white-space: nowrap;
-  min-height:170px;
-  gap: 40px;
+  min-height: 170px;
+  gap: 36px; /* was 40px */
   position: relative;
   flex-grow: 1;
   flex: 1;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
+
     .bar-container {
       position: relative;
       display: flex;
@@ -68,18 +82,6 @@ body {
       gap: 10px;
       
     }
-      .bar {
-        width: 25px;
-        border: 0.2px thin gray;
-        background: linear-gradient(180deg, #ffa726, #fb8c00);
-        border-radius: 5px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        animation: float 2.5s ease-in-out infinite alternate;
-        
-        /* ADD THIS: */
-        transition: transform 0.4s ease, background 0.4s ease;
-      }
   
     .bar:hover {
       transform: scaleY(1.7) scaleX(1.4);
@@ -419,8 +421,8 @@ body {
 
 
   <audio id="ce" src="ce.wav"></audio>
-  <header style="margin-top: 20px;">
-    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 76px;">svsd - final round??? 🥹</h1>
+  <header style="padding-top: 50px;">
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 300; color: #333; font-size: 16px;">hawa's design journey (svsd final round 🥹 )</h1>
   
     <div style="border-left: 4px solid #7B68EE; padding-left: 16px; max-height: 100px; margin: 5px auto; min-width:800px; max-width: 800px; font-family: 'Playfair Display', serif; font-size: 22px; color: #444;">
       <em>how might we uncover the design threads hidden across <b>scattered software</b> experiences & weave them into something <span style="color:#7B68EE;">playful</span>, <span style="color:#FF69B4;">living</span>, and <span style="color:#32CD32;">tangible</span>?</em>
@@ -513,7 +515,7 @@ body {
           </div>
         </div>
         <div class="bar pulsing" onclick="openSvsdModal()"style="height: 90px; background: linear-gradient(180deg, #ffeb3b, #fdd835);"></div>
-        <div class="year" style="font-family: 'Instrument Serif', serif; color: #ffffff; font-weight: bold; font-size: medium; text-align: center;"> SVSD 🚀</div>
+        <div class="year" style="font-family: 'Instrument Serif', serif; color: #ffffff; font-weight: bold; font-size: 18px; text-align: center;"> SVSD 🚀</div>
       </div>
 
       <div class="bar-container">
@@ -613,11 +615,11 @@ body {
 
 <div style="position: relative; width: 100%; display: flex; justify-content: center;">
   <div id="storyText" style="
-  font-size: 18px;
+  font-size: 14px;
   color: #444;
   min-width: 800px;
   max-width: 800px;
-  margin-top: 10px;
+  margin-top: 60px;
   font-family: 'Playfair Display', serif;
   line-height: 1.7;
   text-align: left;
@@ -629,7 +631,7 @@ body {
     <div id="scrollHint" style="
     position: absolute;
     margin-bottom: 10px;
-    right: 15px;
+    right: 20px;
     font-size: 12px;
     color:#FF8C00;
     font-family: 'Playfair Display', serif;
@@ -660,7 +662,8 @@ window.onresize = blockMobile; // still keep resize handling
 
 window.onload = function() {
   blockMobile();
-  showNextLine();
+  setTimeout(showNextLine, 2900); // 2.5 second delay (adjust if you want)
+
 };
 
 
@@ -680,6 +683,7 @@ const storyLines = [
   "✺ most beats brushed against design without me realizing it at the time.",
   "i've only realized how design centric these projects were after creating this visualization last night :D",
   "i originally wanted to do a <a href='https://www.figma.com/board/a3ag8WkZ9LnsKn4iBnyVzO/svsd?node-id=2015-2&t=clZfW0NhdhfIvRAb-1' target='_blank' rel='noopener noreferrer' style='color:#7B68EE;'>figjam</a> but it quickly got messy 😅 so i decided to explore this design concept.",
+  "pls hover over the bars and click the snapshots for more info & fun!",
   "— hawa"
 ];
 
@@ -723,7 +727,7 @@ function showNextLine() {
     }, 50);
 
     i++;
-    setTimeout(showNextLine, 1200);
+    setTimeout(showNextLine, 2000);
   }
 }
 

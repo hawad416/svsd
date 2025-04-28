@@ -397,29 +397,6 @@ body {
 
 </head>
 <body>
-
-  <div id="mobileBlocker" style="
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: white;
-  color: black;
-  font-family: 'Work Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  z-index: 9999;">
-    this experience is only available on desktop 🌸
-</div>
-
-
   <audio id="ce" src="ce.wav"></audio>
   <header style="padding-top: 50px;">
     <h1 style="font-family: 'Instrument Serif', serif; font-weight: 300; color: #333; font-size: 16px;">hawa's design journey (svsd final round 🥹 )</h1>
@@ -658,12 +635,9 @@ function blockMobile() {
   }
 }
 
-window.onresize = blockMobile; // still keep resize handling
 
 window.onload = function() {
-  blockMobile();
   setTimeout(showNextLine, 2900); // 2.5 second delay (adjust if you want)
-
 };
 
 

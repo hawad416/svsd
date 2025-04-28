@@ -396,6 +396,28 @@ body {
 </head>
 <body>
 
+  <div id="mobileBlocker" style="
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  color: black;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 9999;">
+    this experience is only available on desktop 🌸
+</div>
+
+
   <audio id="ce" src="ce.wav"></audio>
   <header style="margin-top: 20px;">
     <h1 style="font-family: 'Instrument Serif', serif; font-weight: 700; color: #333; font-size: 76px;">svsd - final round??? 🥹</h1>
@@ -625,6 +647,24 @@ body {
 
 
 <script>
+function blockMobile() {
+  const blocker = document.getElementById('mobileBlocker');
+  if (window.innerWidth < 900) {
+    blocker.style.display = 'flex';
+  } else {
+    blocker.style.display = 'none';
+  }
+}
+
+window.onresize = blockMobile; // still keep resize handling
+
+window.onload = function() {
+  blockMobile();
+  showNextLine();
+};
+
+
+
 const storyText = document.getElementById('storyText');
 const scrollHint = document.getElementById('scrollHint');
 
@@ -683,11 +723,9 @@ function showNextLine() {
     }, 50);
 
     i++;
-    setTimeout(showNextLine, 1000);
+    setTimeout(showNextLine, 1200);
   }
 }
-
-window.onload = showNextLine
 
 function openNotepad(title, img, img2, img3, desc) {
   playSound('ce');
